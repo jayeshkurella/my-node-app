@@ -17,7 +17,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://your-git-repo-url.git'
+                git 'https://github.com/jayeshkurella/my-node-app.git'
             }
         }
 

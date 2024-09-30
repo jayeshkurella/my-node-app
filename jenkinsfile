@@ -9,7 +9,7 @@ pipeline {
         stage('Install Node.js') {
             steps {
                 script {
-                    def nodeHome = tool name: 'NodeJS 22.9.0', type: 'NodeJSInstallation'
+                    def nodeHome = tool name: 'NodeJS 16.0.0', type: 'NodeJSInstallation'
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
                 }
             }

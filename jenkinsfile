@@ -9,8 +9,8 @@ pipeline {
         stage('Install Node.js') {
             steps {
                 script {
-                    // Use the exact name configured in Jenkins, e.g., 'NodeJS_16.x'
-                    def nodeHome = tool name: 'NodeJS_16.x', type: 'NodeJSInstallation'
+                    // Adjust the name to match the installed version, e.g., 'NodeJS_16'
+                    def nodeHome = tool name: 'NodeJS_16', type: 'NodeJSInstallation'
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
                 }
             }

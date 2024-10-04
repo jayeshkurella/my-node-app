@@ -1,16 +1,13 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_VERSION = '16.x' // Define Node.js version
-    }
-
     stages {
         stage('Install Node.js') {
             steps {
                 script {
-                    // Adjust the name to match the installed version, e.g., 'NodeJS_16'
+                    // Make sure the installation name matches what you have in Jenkins
                     def nodeHome = tool name: 'NodeJS_16', type: 'NodeJSInstallation'
+                    echo "Node.js Home: ${nodeHome}"
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
                 }
             }

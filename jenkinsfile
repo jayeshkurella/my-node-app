@@ -2,27 +2,35 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Node.js') {
+        stage('Install Node.js with nvm') {
             steps {
                 script {
-                    // Make sure the installation name matches what you have in Jenkins
-                    def nodeHome = tool name: 'NodeJS_16', type: 'NodeJSInstallation'
-                    echo "Node.js Home: ${nodeHome}"
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                    // Set NVM_DIR
+                    env.NVM_DIR = "$HOME/.nvm"
+                    
+                    // Initialize nvm and install Node.js version 16
+                    sh '''
+                        export NVM_DIR="$HOME/.nvm"
+                        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                        nvm install 16
+                    '''
                 }
             }
         }
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/jayeshkurella/my-node-app.git'
+                // Clone the repository
+                sh 'git clone https://github.com/jayeshkurella/my-node-app.git'
             }
         }
 
         stage('Run Build Script') {
             steps {
-                sh 'chmod +x build.sh'
-                sh './build.sh'
+                dir('my-node-app') { // Change directory to your cloned repo
+                    sh 'chmod +x build.sh'
+                    sh './build.sh'
+                }
             }
         }
     }
